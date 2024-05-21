@@ -10,6 +10,7 @@ pipeline{
             steps{
             sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=soundiata12_geo.project'
         }
+        }
         stage("maven"){
             steps{
             sh 'mvn clean validate compile install test package'
