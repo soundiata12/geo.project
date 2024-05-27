@@ -9,7 +9,7 @@ pipeline{
         stage('sonar-scan'){
             steps{
                 withSonarQubeEnv('sonarQube'){
-                   2sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=soundiata12_geo.project'    
+                   sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=soundiata12_geo.project'    
                 }
     
         }
