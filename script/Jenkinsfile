@@ -1,32 +1,26 @@
-pipeline{
-    agent any
-    tools{
-        maven 'M2_HOME'
-    }
-      
-    
+pipeline {
+    agent any 
+
     stages{
-        stage('sonar-scan'){
-            steps{
-                withSonarQubeEnv('sonarQube'){
-                   sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=soundiata12_geo.project'    
-                }
-    
-        }
-        }
         stage("maven"){
-            steps{
-            sh 'mvn clean validate compile install test package'
+            steps {
+                sh 'mvn clean package'
             }
         }
-        stage('upload artifact'){
-            steps{
-                sh 'curl -uadmin:AP5Nti3MTn5mzHPk7Qx7Y6yNhQt -T \
-                 target/bio*.jar \
-                  "http://44.203.117.160:8081/artifactory/geolocation/geo/bio_${BUILD_ID}.jar" '
-            }
 
+        stage("compile"){
+            steps{
+                sh 'mvn compile'
+            }
+           
+        }
+        stage('test'){
+            steps{
+                sh 'mvn install'
+            }
         }
     }
-
 }
+    
+    
+        
